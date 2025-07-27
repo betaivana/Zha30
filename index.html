@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Zha!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(45deg, #8B4513, #D2B48C, #CD853F);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            min-height: 100vh;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .question-text {
+            font-size: 3em;
+            color: #FFF8DC;
+            text-align: center;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            animation: pulse 2s ease-in-out infinite;
+            transition: all 0.5s ease;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .cake-container {
+            opacity: 0;
+            transform: translateY(100px) scale(0.8);
+            transition: all 1s ease;
+            position: relative;
+        }
+
+        .cake-container.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .cake {
+            width: 400px;
+            height: 200px;
+            background: linear-gradient(to bottom, #F5DEB3, #DEB887);
+            border-radius: 20px;
+            position: relative;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .cake::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            right: 10px;
+            height: 30px;
+            background: #8B4513;
+            border-radius: 50%;
+        }
+
+        .cake-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #F5DEB3;
+            font-size: 1.2em;
+            text-align: center;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .candles {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 60px;
+        }
+
+        .candle {
+            width: 8px;
+            height: 30px;
+            background: #FFD700;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .flame {
+            width: 12px;
+            height: 15px;
+            background: radial-gradient(circle, #FFA500, #FF4500);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            position: absolute;
+            top: -15px;
+            left: -2px;
+            animation: flicker 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes flicker {
+            0% { transform: rotate(-2deg) scale(1); }
+            100% { transform: rotate(2deg) scale(1.1); }
+        }
+
+        .flame.out {
+            display: none;
+        }
+
+        .character {
+            position: absolute;
+            right: -150px;
+            bottom: 0;
+            opacity: 0;
+            transform: translateX(200px);
+            transition: all 1s ease;
+        }
+
+        .character.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .character-body {
+            width: 80px;
+            height: 120px;
+            background: #4169E1;
+            border-radius: 40px 40px 20px 20px;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .character-head {
+            width: 60px;
+            height: 60px;
+            background: #FDBCB4;
+            border-radius: 50%;
+            position: absolute;
+            top: -30px;
+            left: 10px;
+        }
+
+        .hair {
+            width: 70px;
+            height: 40px;
+            background: #8B4513;
+            border-radius: 50% 50% 30% 30%;
+            position: absolute;
+            top: -35px;
+            left: 5px;
+        }
+
+        .hair::after {
+            content: '';
+            width: 15px;
+            height: 15px;
+            background: #8B4513;
+            border-radius: 50%;
+            position: absolute;
+            right: -5px;
+            top: 10px;
+        }
+
+        .glasses {
+            width: 40px;
+            height: 15px;
+            border: 2px solid #333;
+            border-radius: 50%;
+            position: absolute;
+            top: 15px;
+            left: 10px;
+        }
+
+        .glasses::after {
+            content: '';
+            width: 40px;
+            height: 15px;
+            border: 2px solid #333;
+            border-radius: 50%;
+            position: absolute;
+            left: 0;
+        }
+
+        .speech-bubble {
+            position: absolute;
+            top: -60px;
+            left: -30px;
+            background: white;
+            padding: 10px 15px;
+            border-radius: 20px;
+            font-size: 1.1em;
+            color: #333;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .speech-bubble.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 30px;
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+            border-top-color: white;
+        }
+
+        .knife {
+            position: absolute;
+            right: -40px;
+            top: 50px;
+            width: 60px;
+            height: 8px;
+            background: silver;
+            border-radius: 4px;
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.5s ease;
+        }
+
+        .knife.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .knife::before {
+            content: '';
+            position: absolute;
+            right: -15px;
+            top: -2px;
+            width: 15px;
+            height: 12px;
+            background: #8B4513;
+            border-radius: 2px;
+        }
+
+        .share-section {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0);
+            transition: all 0.5s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .share-section.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .share-input {
+            padding: 10px;
+            font-size: 1.1em;
+            border: 2px solid #DDD;
+            border-radius: 10px;
+            margin: 10px;
+            width: 200px;
+        }
+
+        .share-button {
+            padding: 10px 20px;
+            font-size: 1.1em;
+            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .share-button:hover {
+            transform: scale(1.05);
+        }
+
+        .letter-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #FFF8DC;
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 600px;
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0);
+            transition: all 0.8s ease;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            border: 3px solid #D4AF37;
+        }
+
+        .letter-container.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .letter-header {
+            font-size: 2em;
+            color: #8B4513;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .letter-content {
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: #5D4E37;
+            text-align: justify;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #FF6B6B;
+            animation: confetti-fall 3s linear infinite;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .hidden {
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.5s ease;
+        }
+
+        .plate {
+            position: absolute;
+            bottom: -20px;
+            left: -20px;
+            width: 120px;
+            height: 20px;
+            background: #F5F5F5;
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        audio {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <audio id="birthdayMusic" loop>
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+H0s2XaADOH0e/PfC8FJnzN8t2NSgwUUKjn87JmGgYzgtPvxXQhBjqb2O7PeTIGJWzB7t6QSgwWVK7n9rNmGwc5j9Xyx3ccBjib3fO/ayEFKmnG+c+FOgcVV7Do77BdGgQxgtDvxXQhBTSO1vPJfS0GJn3H6N+QSgwWVK7n9rNmGwczhtTvwncjBSqF2fDHfDEGJ3fH6N+LQQoUW7nq8KdWEgdZs/L2smscBzqI2/7ReIgEV7js6qRVE..." type="audio/wav">
+    </audio>
+
+    <div class="container">
+        <div id="questionText" class="question-text">What day is it today?</div>
+        
+        <div id="cakeContainer" class="cake-container">
+            <div class="cake">
+                <div class="cake-text">
+                    Wiser now, a bit annoying,<br>
+                    always lovable.<br>
+                    Happy 30, my constant
+                </div>
+                <div class="candles">
+                    <div class="candle">
+                        <div id="flame1" class="flame"></div>
+                    </div>
+                    <div class="candle">
+                        <div id="flame2" class="flame"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="plate"></div>
+            
+            <div id="character" class="character">
+                <div class="character-body">
+                    <div class="character-head">
+                        <div class="hair"></div>
+                        <div class="glasses"></div>
+                    </div>
+                </div>
+                <div id="speechBubble" class="speech-bubble">Surprise! hehe</div>
+                <div id="knife" class="knife"></div>
+            </div>
+        </div>
+
+        <div id="shareSection" class="share-section">
+            <h3>Potongan cake ini kamu kasih ke siapa?</h3>
+            <input type="text" id="nameInput" class="share-input" placeholder="Masukkan nama...">
+            <br>
+            <button class="share-button" onclick="generateLink()">Generate Link</button>
+            <div id="generatedLink" style="margin-top: 15px; font-size: 0.9em;"></div>
+        </div>
+
+        <div id="letterContainer" class="letter-container">
+            <div class="letter-header">Surat Untukmu ✨</div>
+            <div class="letter-content">
+                <p>Dear Zha,</p>
+                <br>
+                <p>Happy 30th birthday, my constant! 🎉</p>
+                <br>
+                <p>Tiga puluh tahun sudah kamu menjalani hidup di dunia ini, dan aku bersyukur bisa jadi bagian dari perjalananmu. Kamu memang sudah lebih bijak sekarang (meski kadang masih annoying juga sih, hehe), tapi yang pasti kamu selalu lovable di mataku.</p>
+                <br>
+                <p>Terima kasih sudah jadi konstanta dalam hidupku - selalu ada, selalu mendukung, selalu bikin hari-hari jadi lebih berwarna. Semoga di usia yang baru ini, kamu semakin bahagia, semakin sukses, dan semakin... eh, hopefully kurang annoying? Just kidding! 😄</p>
+                <br>
+                <p>May this new chapter bring you endless joy, amazing adventures, and all the cake you can eat! 🎂</p>
+                <br>
+                <p>With love and birthday wishes,<br>
+                Your favorite person (hopefully) 💕</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 0;
+        let candles = [true, true]; // both candles lit initially
+        const music = document.getElementById('birthdayMusic');
+        
+        // Create confetti
+        function createConfetti() {
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * window.innerWidth + 'px';
+                    confetti.style.backgroundColor = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8'][Math.floor(Math.random() * 5)];
+                    confetti.style.animationDelay = Math.random() * 3 + 's';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 3000);
+                }, i * 100);
+            }
+        }
+
+        function generateLink() {
+            const name = document.getElementById('nameInput').value;
+            if (name.trim()) {
+                const link = `${window.location.origin}${window.location.pathname}?for=${encodeURIComponent(name)}`;
+                document.getElementById('generatedLink').innerHTML = `
+                    <p>Link untuk ${name}:</p>
+                    <a href="${link}" target="_blank" style="color: #4ECDC4; word-break: break-all;">${link}</a>
+                `;
+            }
+        }
+
+        // Check if this is a shared link
+        const urlParams = new URLSearchParams(window.location.search);
+        const forName = urlParams.get('for');
+        
+        if (forName) {
+            document.getElementById('questionText').textContent = `Happy Birthday from your friend to ${forName}! 🎉`;
+        }
+
+        document.addEventListener('click', () => {
+            currentStep++;
+            
+            switch(currentStep) {
+                case 1:
+                    // Hide question, show cake with music
+                    document.getElementById('questionText').classList.add('hidden');
+                    document.getElementById('cakeContainer').classList.add('show');
+                    music.play().catch(e => console.log('Audio play failed:', e));
+                    createConfetti();
+                    break;
+                    
+                case 2:
+                    // Blow out first candle and show character
+                    document.getElementById('flame1').classList.add('out');
+                    document.getElementById('character').classList.add('show');
+                    candles[0] = false;
+                    setTimeout(() => {
+                        document.getElementById('speechBubble').classList.add('show');
+                    }, 500);
+                    break;
+                    
+                case 3:
+                    // Blow out second candle and hide speech bubble
+                    document.getElementById('flame2').classList.add('out');
+                    document.getElementById('speechBubble').classList.remove('show');
+                    candles[1] = false;
+                    break;
+                    
+                case 4:
+                    // Show knife
+                    document.getElementById('knife').classList.add('show');
+                    break;
+                    
+                case 5:
+                    // Show sharing section
+                    document.getElementById('shareSection').classList.add('show');
+                    break;
+                    
+                case 6:
+                    // Hide sharing section, show character eating cake animation
+                    document.getElementById('shareSection').classList.remove('show');
+                    // Add eating animation here if needed
+                    setTimeout(() => {
+                        document.getElementById('character').style.opacity = '0.5';
+                        document.getElementById('speechBubble').innerHTML = 'Nih, buat kamu';
+                        document.getElementById('speechBubble').classList.add('show');
+                    }, 500);
+                    break;
+                    
+                case 7:
+                    // Character fades away, show letter
+                    document.getElementById('character').style.opacity = '0';
+                    document.getElementById('character').style.transform = 'translateX(200px)';
+                    setTimeout(() => {
+                        document.getElementById('letterContainer').classList.add('show');
+                    }, 1000);
+                    break;
+            }
+        });
+
+        // Add some floating animations
+        setInterval(() => {
+            if (currentStep >= 1) {
+                const cake = document.querySelector('.cake-container');
+                if (cake) {
+                    cake.style.transform = `translateY(${Math.sin(Date.now() * 0.001) * 5}px) scale(1)`;
+                }
+            }
+        }, 50);
+    </script>
+</body>
+</html>
