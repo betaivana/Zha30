@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Zha!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,19 +13,46 @@
         }
 
         body {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            background: linear-gradient(45deg, #8B4513, #D2B48C, #CD853F);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 25%, #CD853F 50%, #DEB887 75%, #F5DEB3 100%);
             background-size: 400% 400%;
-            animation: gradientShift 8s ease infinite;
+            animation: gradientAnimation 20s ease infinite;
             min-height: 100vh;
             overflow: hidden;
             cursor: pointer;
+            position: relative;
         }
 
-        @keyframes gradientShift {
+        @keyframes gradientAnimation {
             0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+            25% { background-position: 100% 50%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 0% 100%; }
             100% { background-position: 0% 50%; }
+        }
+
+        /* Subtle background particles */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.03) 2px, transparent 2px),
+                radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.03) 2px, transparent 2px),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100px 100px, 120px 120px, 80px 80px;
+            animation: particleMove 30s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes particleMove {
+            0% { transform: translate(0, 0); }
+            33% { transform: translate(30px, -30px); }
+            66% { transform: translate(-20px, 20px); }
+            100% { transform: translate(0, 0); }
         }
 
         .container {
@@ -33,53 +61,106 @@
             align-items: center;
             min-height: 100vh;
             position: relative;
+            z-index: 1;
+            padding: 20px;
         }
 
+        /* Question text with better typography */
         .question-text {
-            font-size: 3em;
-            color: #FFF8DC;
+            font-family: 'Caveat', cursive;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            color: #FFFEF7;
             text-align: center;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
-            animation: pulse 2s ease-in-out infinite;
-            transition: all 0.5s ease;
+            text-shadow: 
+                0 4px 8px rgba(0, 0, 0, 0.3),
+                0 8px 16px rgba(0, 0, 0, 0.15),
+                0 0 40px rgba(255, 255, 255, 0.1);
+            animation: textPulse 4s ease-in-out infinite;
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            letter-spacing: 2px;
+            line-height: 1.2;
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        @keyframes textPulse {
+            0%, 100% { 
+                transform: scale(1) translateY(0px);
+                filter: brightness(1);
+            }
+            50% { 
+                transform: scale(1.05) translateY(-5px);
+                filter: brightness(1.1);
+            }
         }
 
+        /* Improved cake container */
         .cake-container {
             opacity: 0;
-            transform: translateY(100px) scale(0.8);
-            transition: all 1s ease;
+            transform: translateY(100px) scale(0.8) rotateX(-15deg);
+            transition: all 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
+            filter: drop-shadow(0 25px 50px rgba(0, 0, 0, 0.4));
         }
 
         .cake-container.show {
             opacity: 1;
-            transform: translateY(0) scale(1);
+            transform: translateY(0) scale(1) rotateX(0deg);
+            animation: gentleFloat 8s ease-in-out infinite;
         }
 
-        .cake {
-            width: 400px;
-            height: 200px;
-            background: linear-gradient(to bottom, #F5DEB3, #DEB887);
-            border-radius: 20px;
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0px) scale(1) rotateZ(0deg); }
+            25% { transform: translateY(-8px) scale(1.01) rotateZ(0.3deg); }
+            50% { transform: translateY(0px) scale(1) rotateZ(0deg); }
+            75% { transform: translateY(-4px) scale(1.005) rotateZ(-0.3deg); }
+        }
+
+        /* Redesigned cake to match the image better */
+        .cake-base {
+            width: 480px;
+            height: 280px;
             position: relative;
             margin: 0 auto;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
-        .cake::before {
-            content: '';
+        .cake-plate {
             position: absolute;
-            top: -10px;
-            left: 10px;
-            right: 10px;
-            height: 30px;
-            background: #8B4513;
+            bottom: -25px;
+            left: -40px;
+            right: -40px;
+            height: 35px;
+            background: linear-gradient(ellipse, #E8E8E8 0%, #D0D0D0 50%, #C8C8C8 100%);
             border-radius: 50%;
+            box-shadow: 
+                0 8px 25px rgba(0, 0, 0, 0.3),
+                inset 0 2px 4px rgba(255, 255, 255, 0.3);
+        }
+
+        .cake-bottom {
+            width: 100%;
+            height: 65%;
+            background: linear-gradient(to bottom, #F5DEB3 0%, #DEB887 30%, #D2B48C 70%, #BC9A6A 100%);
+            border-radius: 25px;
+            position: absolute;
+            bottom: 0;
+            box-shadow: 
+                inset 0 -8px 16px rgba(139, 69, 19, 0.15),
+                inset 0 8px 16px rgba(255, 255, 255, 0.1),
+                0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .cake-top {
+            width: 88%;
+            height: 45%;
+            background: linear-gradient(to bottom, #8B4513 0%, #6B3410 40%, #5D2F0E 100%);
+            border-radius: 50%;
+            position: absolute;
+            top: 15px;
+            left: 6%;
+            box-shadow: 
+                inset 0 4px 12px rgba(0, 0, 0, 0.4),
+                inset 0 -2px 8px rgba(255, 255, 255, 0.05),
+                0 8px 16px rgba(0, 0, 0, 0.3);
         }
 
         .cake-text {
@@ -87,298 +168,577 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            color: #F5DEB3;
-            font-size: 1.2em;
+            color: #FFF8DC;
+            font-size: 1.35rem;
+            font-weight: 600;
             text-align: center;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            text-shadow: 
+                2px 2px 4px rgba(0, 0, 0, 0.8),
+                0 0 8px rgba(0, 0, 0, 0.5);
+            line-height: 1.4;
+            z-index: 2;
+            font-family: 'Inter', sans-serif;
         }
 
-        .candles {
+        /* Enhanced candles */
+        .candles-container {
             position: absolute;
-            top: -40px;
+            top: -45px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 60px;
+            gap: 90px;
+            z-index: 10;
         }
 
         .candle {
-            width: 8px;
-            height: 30px;
-            background: #FFD700;
-            border-radius: 4px;
+            width: 14px;
+            height: 45px;
+            background: linear-gradient(to bottom, #FFD700 0%, #FFA500 50%, #FF8C00 100%);
+            border-radius: 7px;
             position: relative;
+            box-shadow: 
+                0 6px 12px rgba(0, 0, 0, 0.3),
+                inset 2px 0 4px rgba(255, 255, 255, 0.3);
+        }
+
+        .candle::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 10px;
+            background: #2C1810;
+            border-radius: 1.5px;
         }
 
         .flame {
-            width: 12px;
-            height: 15px;
-            background: radial-gradient(circle, #FFA500, #FF4500);
+            width: 18px;
+            height: 24px;
+            background: radial-gradient(ellipse at center bottom, #FF4500 0%, #FF6500 25%, #FFA500 60%, #FFD700 85%, #FFFACD 100%);
             border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
             position: absolute;
-            top: -15px;
-            left: -2px;
-            animation: flicker 1s ease-in-out infinite alternate;
+            top: -26px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: flameFlicker 1.2s ease-in-out infinite alternate;
+            box-shadow: 
+                0 0 20px rgba(255, 69, 0, 0.6),
+                0 0 40px rgba(255, 165, 0, 0.3),
+                0 0 60px rgba(255, 215, 0, 0.2);
         }
 
-        @keyframes flicker {
-            0% { transform: rotate(-2deg) scale(1); }
-            100% { transform: rotate(2deg) scale(1.1); }
+        @keyframes flameFlicker {
+            0% { 
+                transform: translateX(-50%) rotate(-2deg) scale(1);
+                filter: brightness(1) hue-rotate(0deg);
+            }
+            25% { 
+                transform: translateX(-50%) rotate(1deg) scale(1.05);
+                filter: brightness(1.1) hue-rotate(5deg);
+            }
+            75% { 
+                transform: translateX(-50%) rotate(-1deg) scale(0.98);
+                filter: brightness(0.95) hue-rotate(-5deg);
+            }
+            100% { 
+                transform: translateX(-50%) rotate(2deg) scale(1.08);
+                filter: brightness(1.15) hue-rotate(10deg);
+            }
         }
 
         .flame.out {
-            display: none;
+            opacity: 0;
+            transform: translateX(-50%) scale(0) rotate(180deg);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
+        /* Improved character design */
         .character {
             position: absolute;
-            right: -150px;
-            bottom: 0;
+            right: -220px;
+            bottom: -60px;
             opacity: 0;
-            transform: translateX(200px);
-            transition: all 1s ease;
+            transform: translateX(350px) scale(0.7) rotateY(-45deg);
+            transition: all 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 15;
         }
 
         .character.show {
             opacity: 1;
-            transform: translateX(0);
+            transform: translateX(0) scale(1) rotateY(0deg);
+            animation: characterIdle 6s ease-in-out infinite;
         }
 
-        .character-body {
-            width: 80px;
-            height: 120px;
-            background: #4169E1;
-            border-radius: 40px 40px 20px 20px;
+        @keyframes characterIdle {
+            0%, 100% { transform: translateY(0px) rotateZ(0deg); }
+            25% { transform: translateY(-3px) rotateZ(0.5deg); }
+            50% { transform: translateY(0px) rotateZ(0deg); }
+            75% { transform: translateY(-1px) rotateZ(-0.5deg); }
+        }
+
+        .character-container {
             position: relative;
-            margin: 0 auto;
+            width: 140px;
+            height: 220px;
         }
 
-        .character-head {
-            width: 60px;
-            height: 60px;
-            background: #FDBCB4;
-            border-radius: 50%;
+        /* Blue dress with better shading */
+        .character-dress {
+            width: 110px;
+            height: 150px;
+            background: linear-gradient(to bottom, #1E3A8A 0%, #1E40AF 30%, #2563EB 70%, #3B82F6 100%);
+            border-radius: 55px 55px 35px 35px;
             position: absolute;
-            top: -30px;
-            left: 10px;
+            bottom: 0;
+            left: 15px;
+            box-shadow: 
+                inset -8px 0 16px rgba(0, 0, 0, 0.2),
+                inset 8px 0 16px rgba(255, 255, 255, 0.1),
+                0 12px 24px rgba(0, 0, 0, 0.3);
         }
 
-        .hair {
-            width: 70px;
-            height: 40px;
-            background: #8B4513;
-            border-radius: 50% 50% 30% 30%;
-            position: absolute;
-            top: -35px;
-            left: 5px;
-        }
-
-        .hair::after {
+        .character-dress::before {
             content: '';
-            width: 15px;
-            height: 15px;
-            background: #8B4513;
-            border-radius: 50%;
             position: absolute;
-            right: -5px;
-            top: 10px;
+            top: 25px;
+            left: -3px;
+            right: -3px;
+            height: 35px;
+            background: linear-gradient(to right, transparent 0%, rgba(30, 64, 175, 0.8) 20%, rgba(30, 64, 175, 0.8) 80%, transparent 100%);
+            border-radius: 60px;
         }
 
-        .glasses {
-            width: 40px;
-            height: 15px;
-            border: 2px solid #333;
+        /* Better head proportions */
+        .character-head {
+            width: 85px;
+            height: 85px;
+            background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 50%, #D97706 100%);
             border-radius: 50%;
             position: absolute;
             top: 15px;
-            left: 10px;
+            left: 27.5px;
+            box-shadow: 
+                0 8px 16px rgba(0, 0, 0, 0.25),
+                inset -4px -4px 8px rgba(0, 0, 0, 0.1),
+                inset 4px 4px 8px rgba(255, 255, 255, 0.1);
         }
 
-        .glasses::after {
-            content: '';
-            width: 40px;
-            height: 15px;
-            border: 2px solid #333;
-            border-radius: 50%;
+        /* More natural hair */
+        .character-hair {
+            width: 95px;
+            height: 55px;
+            background: linear-gradient(to bottom, #92400E 0%, #78350F 60%, #6B2E0A 100%);
+            border-radius: 47.5px 47.5px 25px 25px;
             position: absolute;
-            left: 0;
+            top: 8px;
+            left: 22.5px;
+            z-index: 1;
         }
 
+        .character-hair::before {
+            content: '';
+            position: absolute;
+            top: 18px;
+            right: -12px;
+            width: 28px;
+            height: 38px;
+            background: linear-gradient(to bottom, #92400E 0%, #78350F 60%, #6B2E0A 100%);
+            border-radius: 50%;
+            transform: rotate(25deg);
+        }
+
+        .character-hair::after {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: -15px;
+            width: 25px;
+            height: 35px;
+            background: linear-gradient(to bottom, #92400E 0%, #78350F 60%, #6B2E0A 100%);
+            border-radius: 50%;
+            transform: rotate(-30deg);
+        }
+
+        /* Cleaner glasses */
+        .character-glasses {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            width: 55px;
+            height: 25px;
+            z-index: 3;
+        }
+
+        .character-glasses::before,
+        .character-glasses::after {
+            content: '';
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            border: 2.5px solid #374151;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.1);
+        }
+
+        .character-glasses::before { left: 0; }
+        .character-glasses::after { right: 0; }
+
+        .character-glasses-bridge {
+            position: absolute;
+            top: 51px;
+            left: 62px;
+            width: 10px;
+            height: 3px;
+            background: #374151;
+            border-radius: 1.5px;
+        }
+
+        /* Arms with better positioning */
+        .character-arm-left,
+        .character-arm-right {
+            position: absolute;
+            width: 18px;
+            height: 70px;
+            background: linear-gradient(to bottom, #FBBF24 0%, #F59E0B 50%, #D97706 100%);
+            border-radius: 9px;
+            top: 90px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .character-arm-left {
+            left: 8px;
+            transform: rotate(-15deg);
+        }
+
+        .character-arm-right {
+            right: 8px;
+            transform: rotate(15deg);
+        }
+
+        /* Enhanced speech bubble */
         .speech-bubble {
             position: absolute;
-            top: -60px;
-            left: -30px;
-            background: white;
-            padding: 10px 15px;
-            border-radius: 20px;
-            font-size: 1.1em;
-            color: #333;
+            top: -95px;
+            left: -60px;
+            background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
+            padding: 18px 24px;
+            border-radius: 30px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1F2937;
             opacity: 0;
-            transform: scale(0);
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transform: scale(0) rotate(-15deg) translateY(20px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.15),
+                0 5px 15px rgba(0, 0, 0, 0.08),
+                0 0 0 3px rgba(59, 130, 246, 0.05);
+            border: 2px solid rgba(229, 231, 235, 0.8);
+            font-family: 'Caveat', cursive;
         }
 
         .speech-bubble.show {
             opacity: 1;
-            transform: scale(1);
+            transform: scale(1) rotate(0deg) translateY(0px);
+            animation: bubbleBounce 0.6s ease-out 0.8s;
+        }
+
+        @keyframes bubbleBounce {
+            0% { transform: scale(1) rotate(0deg) translateY(0px); }
+            50% { transform: scale(1.05) rotate(1deg) translateY(-3px); }
+            100% { transform: scale(1) rotate(0deg) translateY(0px); }
+        }
+
+        .speech-bubble::before {
+            content: '';
+            position: absolute;
+            bottom: -18px;
+            left: 45px;
+            width: 0;
+            height: 0;
+            border: 18px solid transparent;
+            border-top-color: #FFFFFF;
+            filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.1));
         }
 
         .speech-bubble::after {
             content: '';
             position: absolute;
-            bottom: -10px;
-            left: 30px;
+            bottom: -22px;
+            left: 42px;
             width: 0;
             height: 0;
-            border: 10px solid transparent;
-            border-top-color: white;
+            border: 21px solid transparent;
+            border-top-color: rgba(229, 231, 235, 0.8);
         }
 
+        /* Improved knife */
         .knife {
             position: absolute;
-            right: -40px;
-            top: 50px;
-            width: 60px;
-            height: 8px;
-            background: silver;
-            border-radius: 4px;
+            right: -80px;
+            top: 110px;
             opacity: 0;
-            transform: translateX(50px);
-            transition: all 0.5s ease;
+            transform: translateX(120px) rotate(-25deg) scale(0.8);
+            transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .knife.show {
             opacity: 1;
-            transform: translateX(0);
+            transform: translateX(0) rotate(0deg) scale(1);
+            animation: knifeGlint 3s ease-in-out infinite;
         }
 
-        .knife::before {
-            content: '';
+        @keyframes knifeGlint {
+            0%, 90%, 100% { filter: brightness(1); }
+            95% { filter: brightness(1.3); }
+        }
+
+        .knife-blade {
+            width: 70px;
+            height: 14px;
+            background: linear-gradient(to right, #E5E7EB 0%, #F9FAFB 25%, #FFFFFF 50%, #F3F4F6 75%, #E5E7EB 100%);
+            border-radius: 7px 2px 2px 7px;
+            position: relative;
+            box-shadow: 
+                0 3px 8px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.8),
+                inset 0 -1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .knife-handle {
             position: absolute;
-            right: -15px;
-            top: -2px;
-            width: 15px;
-            height: 12px;
-            background: #8B4513;
-            border-radius: 2px;
+            right: -28px;
+            top: -3px;
+            width: 32px;
+            height: 20px;
+            background: linear-gradient(to bottom, #92400E 0%, #78350F 50%, #6B2E0A 100%);
+            border-radius: 10px;
+            box-shadow: 
+                0 3px 6px rgba(0, 0, 0, 0.3),
+                inset 2px 0 4px rgba(255, 255, 255, 0.1);
         }
 
+        /* Enhanced share section */
         .share-section {
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(255, 255, 255, 0.95);
-            padding: 30px;
-            border-radius: 20px;
+            transform: translate(-50%, -50%) scale(0) rotateY(-90deg);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.98) 100%);
+            padding: 50px;
+            border-radius: 30px;
             text-align: center;
             opacity: 0;
-            transform: translate(-50%, -50%) scale(0);
-            transition: all 0.5s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px) saturate(1.2);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            min-width: 450px;
         }
 
         .share-section.show {
             opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
+            transform: translate(-50%, -50%) scale(1) rotateY(0deg);
+        }
+
+        .share-section h3 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1F2937;
+            margin-bottom: 25px;
+            font-family: 'Caveat', cursive;
         }
 
         .share-input {
-            padding: 10px;
-            font-size: 1.1em;
-            border: 2px solid #DDD;
-            border-radius: 10px;
-            margin: 10px;
-            width: 200px;
+            padding: 18px 24px;
+            font-size: 1.2rem;
+            border: 2px solid #E5E7EB;
+            border-radius: 20px;
+            margin: 20px;
+            width: 320px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .share-input:focus {
+            outline: none;
+            border-color: #3B82F6;
+            box-shadow: 0 0 0 6px rgba(59, 130, 246, 0.1);
+            background: rgba(255, 255, 255, 1);
+            transform: scale(1.02);
         }
 
         .share-button {
-            padding: 10px 20px;
-            font-size: 1.1em;
-            background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
+            padding: 18px 36px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%);
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 20px;
             cursor: pointer;
-            transition: transform 0.2s ease;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-family: 'Inter', sans-serif;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
 
         .share-button:hover {
-            transform: scale(1.05);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
         }
 
+        .share-button:active {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        /* Premium letter container */
         .letter-container {
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
-            background: #FFF8DC;
-            padding: 40px;
-            border-radius: 15px;
-            max-width: 600px;
+            transform: translate(-50%, -50%) scale(0) rotateX(-90deg);
+            background: linear-gradient(135deg, #FFF8DC 0%, #F5F5DC 100%);
+            padding: 60px;
+            border-radius: 25px;
+            max-width: 750px;
             opacity: 0;
-            transform: translate(-50%, -50%) scale(0);
-            transition: all 0.8s ease;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-            border: 3px solid #D4AF37;
+            transition: all 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 
+                0 40px 80px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            border: 4px solid #D4AF37;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .letter-container::before {
+            content: '';
+            position: absolute;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            background: linear-gradient(45deg, #D4AF37, #FFD700, #F4E4BC, #D4AF37);
+            border-radius: 29px;
+            z-index: -1;
+            animation: borderGlow 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes borderGlow {
+            0% { filter: brightness(1) saturate(1); }
+            100% { filter: brightness(1.1) saturate(1.2); }
         }
 
         .letter-container.show {
             opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
+            transform: translate(-50%, -50%) scale(1) rotateX(0deg);
         }
 
         .letter-header {
-            font-size: 2em;
+            font-size: 2.8rem;
+            font-weight: 700;
             color: #8B4513;
-            margin-bottom: 20px;
+            margin-bottom: 35px;
             text-align: center;
-            font-weight: bold;
+            font-family: 'Caveat', cursive;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
 
         .letter-content {
-            font-size: 1.2em;
-            line-height: 1.6;
+            font-size: 1.25rem;
+            line-height: 1.8;
             color: #5D4E37;
             text-align: justify;
+            font-weight: 400;
+            font-family: 'Inter', sans-serif;
         }
 
+        .letter-content p {
+            margin-bottom: 24px;
+        }
+
+        .letter-content strong {
+            color: #8B4513;
+            font-weight: 700;
+        }
+
+        .letter-content em {
+            color: #A0522D;
+            font-style: italic;
+        }
+
+        /* Enhanced confetti */
         .confetti {
             position: absolute;
             width: 10px;
             height: 10px;
-            background: #FF6B6B;
-            animation: confetti-fall 3s linear infinite;
+            border-radius: 2px;
+            animation: confettiFall 5s linear infinite;
+            z-index: 1000;
         }
 
-        @keyframes confetti-fall {
+        @keyframes confettiFall {
             0% {
-                transform: translateY(-100vh) rotate(0deg);
+                transform: translateY(-100vh) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
                 opacity: 1;
             }
             100% {
-                transform: translateY(100vh) rotate(720deg);
+                transform: translateY(100vh) rotate(720deg) scale(0);
                 opacity: 0;
             }
         }
 
         .hidden {
-            opacity: 0;
-            transform: scale(0);
-            transition: all 0.5s ease;
+            opacity: 0 !important;
+            transform: scale(0) translateY(-100px) !important;
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        .plate {
-            position: absolute;
-            bottom: -20px;
-            left: -20px;
-            width: 120px;
-            height: 20px;
-            background: #F5F5F5;
-            border-radius: 50%;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .question-text {
+                font-size: clamp(2rem, 6vw, 3rem);
+            }
+            
+            .cake-base {
+                width: 320px;
+                height: 200px;
+            }
+            
+            .character {
+                right: -120px;
+                bottom: -20px;
+                transform: scale(0.8);
+            }
+            
+            .character.show {
+                transform: scale(0.8);
+            }
+            
+            .share-section,
+            .letter-container {
+                margin: 15px;
+                max-width: calc(100vw - 30px);
+                padding: 30px;
+            }
+            
+            .share-input {
+                width: 250px;
+            }
         }
 
         audio {
@@ -388,181 +748,26 @@
 </head>
 <body>
     <audio id="birthdayMusic" loop>
-        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+H0s2XaADOH0e/PfC8FJnzN8t2NSgwUUKjn87JmGgYzgtPvxXQhBjqb2O7PeTIGJWzB7t6QSgwWVK7n9rNmGwc5j9Xyx3ccBjib3fO/ayEFKmnG+c+FOgcVV7Do77BdGgQxgtDvxXQhBTSO1vPJfS0GJn3H6N+QSgwWVK7n9rNmGwczhtTvwncjBSqF2fDHfDEGJ3fH6N+LQQoUW7nq8KdWEgdZs/L2smscBzqI2/7ReIgEV7js6qRVE..." type="audio/wav">
+        <source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.wav" type="audio/wav">
     </audio>
 
     <div class="container">
         <div id="questionText" class="question-text">What day is it today?</div>
         
         <div id="cakeContainer" class="cake-container">
-            <div class="cake">
-                <div class="cake-text">
-                    Wiser now, a bit annoying,<br>
-                    always lovable.<br>
-                    Happy 30, my constant
+            <div class="cake-base">
+                <div class="cake-plate"></div>
+                <div class="cake-bottom"></div>
+                <div class="cake-top">
+                    <div class="cake-text">
+                        Wiser now, a bit annoying,<br>
+                        always lovable.<br>
+                        <strong>Happy 30, my constant</strong>
+                    </div>
                 </div>
-                <div class="candles">
+                <div class="candles-container">
                     <div class="candle">
                         <div id="flame1" class="flame"></div>
                     </div>
                     <div class="candle">
-                        <div id="flame2" class="flame"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="plate"></div>
-            
-            <div id="character" class="character">
-                <div class="character-body">
-                    <div class="character-head">
-                        <div class="hair"></div>
-                        <div class="glasses"></div>
-                    </div>
-                </div>
-                <div id="speechBubble" class="speech-bubble">Surprise! hehe</div>
-                <div id="knife" class="knife"></div>
-            </div>
-        </div>
-
-        <div id="shareSection" class="share-section">
-            <h3>Potongan cake ini kamu kasih ke siapa?</h3>
-            <input type="text" id="nameInput" class="share-input" placeholder="Masukkan nama...">
-            <br>
-            <button class="share-button" onclick="generateLink()">Generate Link</button>
-            <div id="generatedLink" style="margin-top: 15px; font-size: 0.9em;"></div>
-        </div>
-
-        <div id="letterContainer" class="letter-container">
-            <div class="letter-header">Surat Untukmu ✨</div>
-            <div class="letter-content">
-                <p>Dear Zha,</p>
-                <br>
-                <p>Happy 30th birthday, my constant! 🎉</p>
-                <br>
-                <p>Tiga puluh tahun sudah kamu menjalani hidup di dunia ini, dan aku bersyukur bisa jadi bagian dari perjalananmu. Kamu memang sudah lebih bijak sekarang (meski kadang masih annoying juga sih, hehe), tapi yang pasti kamu selalu lovable di mataku.</p>
-                <br>
-                <p>Terima kasih sudah jadi konstanta dalam hidupku - selalu ada, selalu mendukung, selalu bikin hari-hari jadi lebih berwarna. Semoga di usia yang baru ini, kamu semakin bahagia, semakin sukses, dan semakin... eh, hopefully kurang annoying? Just kidding! 😄</p>
-                <br>
-                <p>May this new chapter bring you endless joy, amazing adventures, and all the cake you can eat! 🎂</p>
-                <br>
-                <p>With love and birthday wishes,<br>
-                Your favorite person (hopefully) 💕</p>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        let currentStep = 0;
-        let candles = [true, true]; // both candles lit initially
-        const music = document.getElementById('birthdayMusic');
-        
-        // Create confetti
-        function createConfetti() {
-            for (let i = 0; i < 50; i++) {
-                setTimeout(() => {
-                    const confetti = document.createElement('div');
-                    confetti.className = 'confetti';
-                    confetti.style.left = Math.random() * window.innerWidth + 'px';
-                    confetti.style.backgroundColor = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8'][Math.floor(Math.random() * 5)];
-                    confetti.style.animationDelay = Math.random() * 3 + 's';
-                    document.body.appendChild(confetti);
-                    
-                    setTimeout(() => {
-                        confetti.remove();
-                    }, 3000);
-                }, i * 100);
-            }
-        }
-
-        function generateLink() {
-            const name = document.getElementById('nameInput').value;
-            if (name.trim()) {
-                const link = `${window.location.origin}${window.location.pathname}?for=${encodeURIComponent(name)}`;
-                document.getElementById('generatedLink').innerHTML = `
-                    <p>Link untuk ${name}:</p>
-                    <a href="${link}" target="_blank" style="color: #4ECDC4; word-break: break-all;">${link}</a>
-                `;
-            }
-        }
-
-        // Check if this is a shared link
-        const urlParams = new URLSearchParams(window.location.search);
-        const forName = urlParams.get('for');
-        
-        if (forName) {
-            document.getElementById('questionText').textContent = `Happy Birthday from your friend to ${forName}! 🎉`;
-        }
-
-        document.addEventListener('click', () => {
-            currentStep++;
-            
-            switch(currentStep) {
-                case 1:
-                    // Hide question, show cake with music
-                    document.getElementById('questionText').classList.add('hidden');
-                    document.getElementById('cakeContainer').classList.add('show');
-                    music.play().catch(e => console.log('Audio play failed:', e));
-                    createConfetti();
-                    break;
-                    
-                case 2:
-                    // Blow out first candle and show character
-                    document.getElementById('flame1').classList.add('out');
-                    document.getElementById('character').classList.add('show');
-                    candles[0] = false;
-                    setTimeout(() => {
-                        document.getElementById('speechBubble').classList.add('show');
-                    }, 500);
-                    break;
-                    
-                case 3:
-                    // Blow out second candle and hide speech bubble
-                    document.getElementById('flame2').classList.add('out');
-                    document.getElementById('speechBubble').classList.remove('show');
-                    candles[1] = false;
-                    break;
-                    
-                case 4:
-                    // Show knife
-                    document.getElementById('knife').classList.add('show');
-                    break;
-                    
-                case 5:
-                    // Show sharing section
-                    document.getElementById('shareSection').classList.add('show');
-                    break;
-                    
-                case 6:
-                    // Hide sharing section, show character eating cake animation
-                    document.getElementById('shareSection').classList.remove('show');
-                    // Add eating animation here if needed
-                    setTimeout(() => {
-                        document.getElementById('character').style.opacity = '0.5';
-                        document.getElementById('speechBubble').innerHTML = 'Nih, buat kamu';
-                        document.getElementById('speechBubble').classList.add('show');
-                    }, 500);
-                    break;
-                    
-                case 7:
-                    // Character fades away, show letter
-                    document.getElementById('character').style.opacity = '0';
-                    document.getElementById('character').style.transform = 'translateX(200px)';
-                    setTimeout(() => {
-                        document.getElementById('letterContainer').classList.add('show');
-                    }, 1000);
-                    break;
-            }
-        });
-
-        // Add some floating animations
-        setInterval(() => {
-            if (currentStep >= 1) {
-                const cake = document.querySelector('.cake-container');
-                if (cake) {
-                    cake.style.transform = `translateY(${Math.sin(Date.now() * 0.001) * 5}px) scale(1)`;
-                }
-            }
-        }, 50);
-    </script>
-</body>
-</html>
+                        <div id="flame2"
